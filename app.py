@@ -29,7 +29,7 @@ def get_qr_code():
     global incoming_data
     if incoming_data:
         data = "upi://pay?pa=karthik.devarajiit-2@oksbi@pn=Karthik%20Devaraj&aid=uGICAgMDc1s6pGw"
-        data_to_encode = str(incoming_data[-1])
+        data_to_encode = data
         img_io = generate_qr_code(data_to_encode)
         return img_io.getvalue(), 200, {'Content-Type': 'image/png'}
     return 'No data to generate QR code.', 400
