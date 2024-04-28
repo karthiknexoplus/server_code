@@ -28,6 +28,7 @@ def index():
 def get_qr_code():
     global incoming_data
     if incoming_data:
+        data = "upi://pay?pa=karthik.devarajiit-2@oksbi@pn=Karthik%20Devaraj&aid=uGICAgMDc1s6pGw"
         data_to_encode = str(incoming_data[-1])
         img_io = generate_qr_code(data_to_encode)
         return img_io.getvalue(), 200, {'Content-Type': 'image/png'}
