@@ -1,4 +1,5 @@
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request
+import json
 import qrcode
 from io import BytesIO
 
@@ -25,15 +26,14 @@ def generate_qr_code(data):
 def index():
     global incoming_data
     if request.method == 'POST':
-        incoming_data.append(request.json.get('data'))
-        return jsonify({'message': 'Data received successfully'}), 200
+        incoming_data.append(json.loads(request.form['data']))
     return render_template('index.html', incoming_data=incoming_data)
 
 @app.route('/generate_qr_code', methods=['GET'])
 def get_qr_code():
     global incoming_data
     if incoming_data:
-        data_to_encode = str(incoming_data[-1])
+        data_to_encode = json.dumps(incoming_data[-1])
         img_io = generate_qr_code(data_to_encode)
         return img_io.getvalue(), 200, {'Content-Type': 'image/png'}
     return 'No data to generate QR code.', 400
