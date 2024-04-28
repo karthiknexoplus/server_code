@@ -33,4 +33,5 @@ def get_qr_code():
         return img_io.getvalue(), 200, {'Content-Type': 'image/png'}
     return 'No data to generate QR code.', 400
 if __name__ == '__main__':
-    app.run(debug=True)
+    # app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)  # Bind to all network interfaces
